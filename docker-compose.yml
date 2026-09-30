@@ -1,0 +1,9 @@
+services:
+  bot:
+    build: .
+    container_name: jobfinderdz
+    restart: unless-stopped     # survives crashes AND VM reboots
+    env_file: .env              # TELEGRAM_TOKEN (+ optional TELEGRAM_CHAT_ID)
+    volumes:
+      - ./data:/data            # jobs.db + telegram_token.txt persist here
+    # no ports needed: outbound HTTPS only (Telegram + scraping)

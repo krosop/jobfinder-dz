@@ -24,7 +24,9 @@ from .extractor import dedupe_offers, extract_offers
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 CONFIG_SOURCES = PROJECT_ROOT / "config" / "sources.toml"
-DATA_DIR = PROJECT_ROOT / "data"
+# data dir is overridable (Docker volume): LAYAJOBS_DATA=/data
+code_data = PROJECT_ROOT / "data"
+DATA_DIR = Path(os.environ.get("LAYAJOBS_DATA", code_data))
 RAW_DIR = DATA_DIR / "raw"
 DB_PATH = DATA_DIR / "jobs.db"
 
@@ -382,6 +384,10 @@ def cmd_bot(args: argparse.Namespace) -> int:
     bot = telegram_mod.Bot(token)
     prefs_store = telegram_mod.PrefsStore(DB_PATH)
     wiz = wizard_mod.Wizard(prefs_store, st)
+    if args.with_daily:
+        # Docker/VPS mode: one process = listener + embedded 06:00 refresh
+        telegram_mod.run_with_daily(pages=args.pages)
+        return 0
     telegram_mod.poll_forever(bot, prefs_store, st, wizard=wiz)
     return 0
 
@@ -474,6 +480,10 @@ def build_parser() -> argparse.ArgumentParser:
                          "TELEGRAM_CHAT_ID env also works (for CI)")
 
     sp = sub.add_parser("bot", help="run the interactive Telegram bot (Ctrl+C to stop)")
+    sp.add_argument("--with-daily", action="store_true",
+                    help="also run the daily 06:00 refresh thread (Docker mode)")
+    sp.add_argument("--pages", type=int, default=20,
+                    help="Emploitic pages per daily refresh (default 20)")
 
     sp = sub.add_parser("export", help="Excel + JSONL export from the DB")
     add_sources_arg(sp)

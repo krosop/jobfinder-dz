@@ -16,6 +16,7 @@ The bot token is read from data/telegram_token.txt (never committed).
 from __future__ import annotations
 
 import json
+import os
 import sqlite3
 import time
 from pathlib import Path
@@ -47,6 +48,10 @@ def token_path(data_dir: str | Path) -> Path:
 
 
 def load_token(data_dir: str | Path) -> Optional[str]:
+    # env wins (Docker / CI); file is the local fallback
+    env = os.environ.get("TELEGRAM_TOKEN", "").strip()
+    if env:
+        return env
     p = token_path(data_dir)
     if p.exists():
         tok = p.read_text(encoding="utf-8").strip()
@@ -300,3 +305,83 @@ def poll_forever(bot: Bot, prefs_store: PrefsStore, store: Store,
         except KeyboardInterrupt:
             print("stopped")
             return
+
+
+# ---------------------------------------------------------------------------
+# Embedded daily refresh thread (used by the Docker deployment: one process
+# = listener + 06:00 push). Runs `layajobs.cli.cmd_daily` logic in-process.
+# ---------------------------------------------------------------------------
+
+def _daily_once(prefs_store: "PrefsStore", store: "Store",
+                pages: int = 20) -> int:
+    """One harvest+digest pass. Returns stored count. Defined lazily to avoid
+    a cli<->telegram import cycle."""
+    from . import boards, digest as digest_mod, ministries  # local import
+    counters = {"stored": 0, "extracted": 0}
+    for offer in boards.harvest_emploitic(max_pages=pages):
+        _, inserted = store.upsert_offer(offer)
+        counters["extracted"] += 1
+        counters["stored"] += 1 if inserted else 0
+    for _slug, offers in ministries.harvest_all().items():
+        for o in offers:
+            _, inserted = store.upsert_offer(o.to_json())
+            counters["extracted"] += 1
+            counters["stored"] += 1 if inserted else 0
+    rows = store.query(limit=5000)
+    for chat_id in prefs_store.all_chats():
+        try:
+            for m in digest_mod.build_digest(rows, prefs_store.get(chat_id)):
+                bot_send_digest(chat_id, m)
+        except Exception as exc:
+            print(f"[daily] chat {chat_id} failed: {exc}")
+    print(f"[daily] done — {counters['stored']} new offers stored")
+    return counters["stored"]
+
+
+_bot_instance: Optional["Bot"] = None
+
+
+def bot_send_digest(chat_id: int | str, text: str) -> None:
+    """Send via the module's bot if set (thread-safe enough for our use)."""
+    if _bot_instance is None:
+        raise TelegramError("no bot instance")
+    _bot_instance.send(chat_id, text)
+
+
+def run_with_daily(pages: int = 20) -> None:
+    """Bot polling + daily-refresh thread (Docker CMD entry point)."""
+    import threading
+    from datetime import datetime, timedelta
+    global _bot_instance
+    token = load_token(os.environ.get("LAYAJOBS_DATA", "data"))
+    bot = Bot(token)
+    _bot_instance = bot
+    prefs_store = PrefsStore(os.environ.get("LAYAJOBS_DATA", "data") + "/jobs.db")
+    store = Store(os.environ.get("LAYAJOBS_DATA", "data") + "/jobs.db")
+    wizard = None
+    try:
+        from .wizard import Wizard
+        wizard = Wizard(prefs_store, store)
+    except Exception:
+        pass
+
+    def daily_loop() -> None:
+        # run at 06:00 Algeria (UTC+1) — i.e. 05:00 UTC — then every 24h
+        target_hour_utc = 5
+        while True:
+            now = datetime.utcnow()
+            run_at = now.replace(hour=target_hour_utc, minute=0, second=0,
+                                 microsecond=0)
+            if run_at <= now:
+                run_at += timedelta(days=1)
+            wait_s = (run_at - now).total_seconds()
+            print(f"[daily] next refresh at {run_at.isoformat()}Z "
+                  f"({wait_s / 3600:.1f}h) — sleeping")
+            time.sleep(max(60, wait_s))
+            try:
+                _daily_once(prefs_store, store, pages=pages)
+            except Exception as exc:
+                print(f"[daily] failed: {exc}")
+
+    threading.Thread(target=daily_loop, daemon=True).start()
+    poll_forever(bot, prefs_store, store, wizard=wizard)
