@@ -41,7 +41,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests PyMuPDF openpyxl "laya>=0.3.20" pytest
+          pip install requests PyMuPDF openpyxl pydantic "laya>=0.3.20" pytest
 
       - name: Restore jobs.db from previous run (if any)
         run: |

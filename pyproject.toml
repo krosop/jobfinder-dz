@@ -11,6 +11,7 @@ dependencies = [
     "requests",
     "PyMuPDF",
     "openpyxl",
+    "pydantic",
     "laya>=0.3.20",
 ]
 
