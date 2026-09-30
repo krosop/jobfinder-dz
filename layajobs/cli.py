@@ -385,10 +385,12 @@ def cmd_bot(args: argparse.Namespace) -> int:
     prefs_store = telegram_mod.PrefsStore(DB_PATH)
     wiz = wizard_mod.Wizard(prefs_store, st)
     if args.with_daily:
-        # Docker/VPS mode: one process = listener + embedded 06:00 refresh
-        telegram_mod.run_with_daily(pages=args.pages)
-        return 0
-    telegram_mod.poll_forever(bot, prefs_store, st, wizard=wiz)
+        # service mode: one process = listener + 06:00 refresh (+ optional
+        # immediate scrape on boot and a live heartbeat — the CMD launcher)
+        telegram_mod.run_with_daily(pages=args.pages,
+                                    refresh_now=args.scrape_now)
+    else:
+        telegram_mod.poll_forever(bot, prefs_store, st, wizard=wiz)
     return 0
 
 
@@ -482,6 +484,8 @@ def build_parser() -> argparse.ArgumentParser:
     sp = sub.add_parser("bot", help="run the interactive Telegram bot (Ctrl+C to stop)")
     sp.add_argument("--with-daily", action="store_true",
                     help="also run the daily 06:00 refresh thread (Docker mode)")
+    sp.add_argument("--scrape-now", action="store_true",
+                    help="with --with-daily: run one full scrape immediately on boot")
     sp.add_argument("--pages", type=int, default=20,
                     help="Emploitic pages per daily refresh (default 20)")
 

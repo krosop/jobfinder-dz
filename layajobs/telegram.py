@@ -155,7 +155,7 @@ CREATE TABLE IF NOT EXISTS telegram_prefs (
 
 class PrefsStore:
     def __init__(self, db_path: str | Path) -> None:
-        self.conn = sqlite3.connect(db_path)
+        self.conn = sqlite3.connect(db_path, check_same_thread=False)
         self.conn.row_factory = sqlite3.Row
         self.conn.executescript(_PREF_SCHEMA)
         self.conn.commit()
@@ -274,7 +274,7 @@ def _esc_ok(exc: Exception) -> str:
 
 
 def poll_forever(bot: Bot, prefs_store: PrefsStore, store: Store,
-                 wizard: Optional[Any] = None) -> None:
+                 wizard: Optional[Any] = None, *, verbose: bool = False) -> None:
     """Long-poll loop; Ctrl+C to stop. Routes messages and button taps."""
     me = bot.me()
     print(f"polling as @{me.get('username')} — Ctrl+C to stop")
@@ -284,8 +284,13 @@ def poll_forever(bot: Bot, prefs_store: PrefsStore, store: Store,
                 message = update.get("message") or {}
                 callback = update.get("callback_query")
                 if message:
+                    if verbose:
+                        who = (message.get("chat") or {}).get("id")
+                        print(f"[msg] chat {who}: {(message.get('text') or '')[:50]!r}")
                     handle_message(bot, prefs_store, store, message, wizard=wizard)
                 elif callback and wizard is not None:
+                    if verbose:
+                        print(f"[btn] {(callback.get('data') or '')[:40]}")
                     cb_chat = ((callback.get("message") or {}).get("chat") or {})
                     chat_id = cb_chat.get("id")
                     data = callback.get("data") or ""
@@ -348,7 +353,7 @@ def bot_send_digest(chat_id: int | str, text: str) -> None:
     _bot_instance.send(chat_id, text)
 
 
-def run_with_daily(pages: int = 20) -> None:
+def run_with_daily(pages: int = 20, *, refresh_now: bool = False) -> None:
     """Bot polling + daily-refresh thread (Docker CMD entry point)."""
     import threading
     from datetime import datetime, timedelta
@@ -364,6 +369,15 @@ def run_with_daily(pages: int = 20) -> None:
         wizard = Wizard(prefs_store, store)
     except Exception:
         pass
+
+    if refresh_now:
+        def initial_refresh() -> None:
+            print("[boot] initial scrape starting now...")
+            try:
+                _daily_once(prefs_store, store, pages=pages)
+            except Exception as exc:
+                print(f"[boot] initial scrape failed: {exc}")
+        threading.Thread(target=initial_refresh, daemon=True).start()
 
     def daily_loop() -> None:
         # run at 06:00 Algeria (UTC+1) — i.e. 05:00 UTC — then every 24h
@@ -383,5 +397,12 @@ def run_with_daily(pages: int = 20) -> None:
             except Exception as exc:
                 print(f"[daily] failed: {exc}")
 
+    def live_status() -> None:
+        # heartbeat so the console always shows the bot is alive
+        while True:
+            time.sleep(300)
+            print(f"[alive] {time.strftime('%H:%M:%S')} — listening for messages")
+    threading.Thread(target=live_status, daemon=True).start()
+
     threading.Thread(target=daily_loop, daemon=True).start()
-    poll_forever(bot, prefs_store, store, wizard=wizard)
+    poll_forever(bot, prefs_store, store, wizard=wizard, verbose=True)

@@ -90,7 +90,10 @@ class Store:
     def __init__(self, db_path: str | Path = "data/jobs.db") -> None:
         self.db_path = Path(db_path)
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
-        self.conn = sqlite3.connect(self.db_path)
+        # check_same_thread=False: the daily-refresh thread (Docker/CMD mode)
+        # shares this connection with the poll thread. sqlite's internal
+        # serialization covers us at our low concurrency.
+        self.conn = sqlite3.connect(self.db_path, check_same_thread=False)
         self.conn.row_factory = sqlite3.Row
         self.conn.executescript(_SCHEMA)
         self.conn.commit()
