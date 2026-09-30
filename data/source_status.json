@@ -1,0 +1,277 @@
+{
+  "el-moudjahid": {
+    "slug": "el-moudjahid",
+    "name": "El Moudjahid",
+    "kind": "epaper",
+    "checked_at": "2026-09-30",
+    "epaper_pdf_candidates": [
+      "https://www.elmoudjahid.com/storage/magazine/030d9f74f5300bc40ad2da11b722d013-file.pdf",
+      "https://www.elmoudjahid.dz/fr/pdf/latest"
+    ],
+    "status": "verified"
+  },
+  "horizons": {
+    "slug": "horizons",
+    "name": "Horizons",
+    "kind": "epaper",
+    "checked_at": "2026-09-30",
+    "epaper_error": "404 Client Error: Not Found for url: https://www.horizons.dz/edition-pdf/",
+    "status": "reachable"
+  },
+  "el-watan": {
+    "slug": "el-watan",
+    "name": "El Watan",
+    "kind": "site",
+    "checked_at": "2026-09-30",
+    "status": "reachable"
+  },
+  "le-soir-dalgerie": {
+    "slug": "le-soir-dalgerie",
+    "name": "Le Soir d'Algérie",
+    "kind": "epaper",
+    "checked_at": "2026-09-30",
+    "epaper_error": "404 Client Error: Not Found for url: https://www.lesoirdalgerie.com/edition-du-jour",
+    "status": "reachable"
+  },
+  "le-quotidien-doran": {
+    "slug": "le-quotidien-doran",
+    "name": "Le Quotidien d'Oran",
+    "kind": "site",
+    "checked_at": "2026-09-30",
+    "status": "reachable"
+  },
+  "lexpression": {
+    "slug": "lexpression",
+    "name": "L'Expression",
+    "kind": "epaper",
+    "checked_at": "2026-09-30",
+    "base_error": "403 Client Error: Forbidden for url: https://www.lexpressiondz.com/",
+    "epaper_error": "403 Client Error: Forbidden for url: https://www.lexpressiondz.com/nationale/le-journal-en-pdf",
+    "status": "unverified"
+  },
+  "reporters": {
+    "slug": "reporters",
+    "name": "Reporters",
+    "kind": "site",
+    "checked_at": "2026-09-30",
+    "base_error": "HTTPSConnectionPool(host='reporters.dz', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='reporters.dz', port=443) at 0x2241083a270>, 'Connection to re",
+    "status": "unverified"
+  },
+  "le-jeune-independant": {
+    "slug": "le-jeune-independant",
+    "name": "Le Jeune Indépendant",
+    "kind": "site",
+    "checked_at": "2026-09-30",
+    "status": "reachable"
+  },
+  "dk-news": {
+    "slug": "dk-news",
+    "name": "DK News",
+    "kind": "site",
+    "checked_at": "2026-09-30",
+    "status": "reachable"
+  },
+  "cap-ouest": {
+    "slug": "cap-ouest",
+    "name": "Cap Ouest",
+    "kind": "site",
+    "checked_at": "2026-09-30",
+    "base_error": "HTTPSConnectionPool(host='cap-ouest.dz', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='cap-ouest.dz', port=443): Failed to resolve 'cap-ouest.dz' ([",
+    "status": "unverified"
+  },
+  "echorouk": {
+    "slug": "echorouk",
+    "name": "Echorouk El Yawmi",
+    "kind": "epaper",
+    "checked_at": "2026-09-30",
+    "epaper_error": "404 Client Error: Not Found for url: https://www.echoroukonline.com/epaper",
+    "status": "reachable"
+  },
+  "el-khabar": {
+    "slug": "el-khabar",
+    "name": "El Khabar",
+    "kind": "epaper",
+    "checked_at": "2026-09-30",
+    "epaper_pdf_candidates": [
+      "https://www.elkhabar.com/pdf#nav",
+      "https://www.elkhabar.com/pdf#content",
+      "https://www.elkhabar.com/pdf#footer"
+    ],
+    "status": "verified"
+  },
+  "ennahar": {
+    "slug": "ennahar",
+    "name": "Ennahar El Djadid",
+    "kind": "site",
+    "checked_at": "2026-09-30",
+    "status": "reachable"
+  },
+  "el-bilad": {
+    "slug": "el-bilad",
+    "name": "El Bilad",
+    "kind": "epaper",
+    "checked_at": "2026-09-30",
+    "epaper_pdf_candidates": [
+      "https://www.elbilad.net/storage/pdf/a8b1810ead64d74eb406d54c9603e502-file.pdf"
+    ],
+    "status": "verified"
+  },
+  "ech-chaab": {
+    "slug": "ech-chaab",
+    "name": "Ech Chaâb",
+    "kind": "epaper",
+    "checked_at": "2026-09-30",
+    "epaper_error": "404 Client Error: Not Found for url: https://www.ech-chaab.com/pdf",
+    "status": "reachable"
+  },
+  "el-massa": {
+    "slug": "el-massa",
+    "name": "El Massa",
+    "kind": "site",
+    "checked_at": "2026-09-30",
+    "status": "reachable"
+  },
+  "an-nasr": {
+    "slug": "an-nasr",
+    "name": "An Nasr",
+    "kind": "epaper",
+    "checked_at": "2026-09-30",
+    "epaper_pdf_candidates": [],
+    "status": "reachable"
+  },
+  "el-djoumhouria": {
+    "slug": "el-djoumhouria",
+    "name": "El Djoumhouria",
+    "kind": "epaper",
+    "checked_at": "2026-09-30",
+    "epaper_error": "404 Client Error: Not Found for url: https://www.eldjoumhouria.dz/epaper",
+    "status": "reachable"
+  },
+  "akher-saa": {
+    "slug": "akher-saa",
+    "name": "Akher Saâ",
+    "kind": "site",
+    "checked_at": "2026-09-30",
+    "base_error": "403 Client Error: Forbidden for url: https://www.akhersaa-dz.com/",
+    "status": "unverified"
+  },
+  "al-fadjr": {
+    "slug": "al-fadjr",
+    "name": "Al Fadjr",
+    "kind": "site",
+    "checked_at": "2026-09-30",
+    "base_error": "HTTPSConnectionPool(host='al-fadjr.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='al-fadjr.com', port=443): Failed to resolve 'al-fadjr.com' ([",
+    "status": "unverified"
+  },
+  "dgfp": {
+    "slug": "dgfp",
+    "name": "Direction Générale de la Fonction Publique",
+    "kind": "portal",
+    "checked_at": "2026-09-30",
+    "base_error": "HTTPSConnectionPool(host='www.dgfp.gov.dz', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: una",
+    "status": "unverified"
+  },
+  "anem": {
+    "slug": "anem",
+    "name": "ANEM (Agence Nationale de l'Emploi)",
+    "kind": "portal",
+    "checked_at": "2026-09-30",
+    "base_error": "HTTPSConnectionPool(host='www.anem.dz', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable ",
+    "status": "unverified"
+  },
+  "emploitic": {
+    "slug": "emploitic",
+    "name": "Emploitic",
+    "kind": "board",
+    "checked_at": "2026-09-30",
+    "epaper_pdf_candidates": [],
+    "status": "reachable"
+  },
+  "emploipartner": {
+    "slug": "emploipartner",
+    "name": "Emploipartner",
+    "kind": "board",
+    "checked_at": "2026-09-30",
+    "epaper_pdf_candidates": [],
+    "status": "reachable"
+  },
+  "triemploi": {
+    "slug": "triemploi",
+    "name": "Triemploi",
+    "kind": "board",
+    "checked_at": "2026-09-30",
+    "status": "reachable"
+  },
+  "optioncarriere": {
+    "slug": "optioncarriere",
+    "name": "Optioncarriere Algérie",
+    "kind": "board",
+    "checked_at": "2026-09-30",
+    "status": "reachable"
+  },
+  "ouedkniss-emploi": {
+    "slug": "ouedkniss-emploi",
+    "name": "Ouedkniss Emploi",
+    "kind": "board",
+    "checked_at": "2026-09-30",
+    "status": "reachable"
+  },
+  "algeriejob": {
+    "slug": "algeriejob",
+    "name": "Algeriejob",
+    "kind": "board",
+    "checked_at": "2026-09-30",
+    "base_error": "403 Client Error: Forbidden for url: https://www.algeriejob.com/",
+    "status": "unverified"
+  },
+  "jobsdz": {
+    "slug": "jobsdz",
+    "name": "JobsDZ (concours aggregator)",
+    "kind": "portal",
+    "checked_at": "2026-09-30",
+    "status": "reachable"
+  },
+  "pressealgerie": {
+    "slug": "pressealgerie",
+    "name": "PresseAlgérie (e-paper hub)",
+    "kind": "portal",
+    "checked_at": "2026-09-30",
+    "status": "reachable"
+  },
+  "concours-fonction-publique": {
+    "slug": "concours-fonction-publique",
+    "name": "Portail national des concours",
+    "kind": "portal",
+    "checked_at": "2026-09-30",
+    "status": "reachable"
+  },
+  "mjustice-concours": {
+    "slug": "mjustice-concours",
+    "name": "Ministère de la Justice — concours",
+    "kind": "portal",
+    "checked_at": "2026-09-30",
+    "base_error": "HTTPSConnectionPool(host='www.mjustice.gov.dz', port=443): Max retries exceeded with url: /fr/40869/ (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verif",
+    "status": "unverified"
+  },
+  "mfinances-concours": {
+    "slug": "mfinances-concours",
+    "name": "Ministère des Finances — concours",
+    "kind": "portal",
+    "checked_at": "2026-09-30",
+    "status": "reachable"
+  },
+  "mfa-concours": {
+    "slug": "mfa-concours",
+    "name": "Ministère des Affaires Étrangères — concours",
+    "kind": "portal",
+    "checked_at": "2026-09-30",
+    "status": "reachable"
+  },
+  "trabajo-dz": {
+    "slug": "trabajo-dz",
+    "name": "Trabajo.org Algérie (aggregator)",
+    "kind": "board",
+    "checked_at": "2026-09-30",
+    "status": "reachable"
+  }
+}

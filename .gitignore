@@ -1,0 +1,11 @@
+
+# secrets — never commit
+data/telegram_token.txt
+data/*.bak
+# bulky runtime dirs
+data/raw/
+data/reports/
+__pycache__/
+*.pyc
+# (data/jobs.db + data/source_status.json ARE tracked: the CI daily run
+#  commits them back so first_seen/times_seen survive between runs)

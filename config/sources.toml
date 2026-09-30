@@ -1,0 +1,355 @@
+# Algerian print-press sources for laya-jobs.
+#
+# kind:
+#   epaper  - publishes downloadable daily PDF editions (primary target)
+#   site    - HTML news site; classifieds may appear as articles
+#   portal  - official gazette / agency portal (clean text, legally syndicated)
+#
+# status starts "unverified"; `laya-jobs verify` probes each source and upgrades it.
+# enabled = false skips a source without deleting it.
+
+[[sources]]
+slug = "el-moudjahid"
+name = "El Moudjahid"
+name_ar = "المجاهد"
+language = "fr"
+kind = "epaper"
+# Verified 2026-09-30: the homepage embeds the current issue PDF
+# (elmoudjahid.com/storage/magazine/*.pdf); /fr/pdf/latest is a shell.
+base_url = "https://www.elmoudjahid.dz/"
+epaper_url = "https://www.elmoudjahid.dz/"
+status = "verified"
+
+[[sources]]
+slug = "horizons"
+name = "Horizons"
+name_ar = "أفق"
+language = "fr"
+kind = "epaper"
+base_url = "https://www.horizons.dz/"
+epaper_url = "https://www.horizons.dz/edition-pdf/"
+status = "unverified"
+
+[[sources]]
+slug = "el-watan"
+name = "El Watan"
+name_ar = "الوطن"
+language = "fr"
+kind = "site"
+base_url = "https://elwatan-dz.com/"
+status = "unverified"
+
+[[sources]]
+slug = "le-soir-dalgerie"
+name = "Le Soir d'Algérie"
+language = "fr"
+kind = "epaper"
+base_url = "https://lesoirdalgerie.com/"
+epaper_url = "https://lesoirdalgerie.com/edition-du-jour"
+status = "unverified"
+
+[[sources]]
+slug = "le-quotidien-doran"
+name = "Le Quotidien d'Oran"
+language = "fr"
+kind = "site"
+base_url = "http://www.lequotidien-oran.com/"
+status = "unverified"
+
+[[sources]]
+slug = "lexpression"
+name = "L'Expression"
+language = "fr"
+kind = "epaper"
+base_url = "https://www.lexpressiondz.com/"
+epaper_url = "https://www.lexpressiondz.com/nationale/le-journal-en-pdf"
+status = "unverified"
+
+[[sources]]
+slug = "reporters"
+name = "Reporters"
+language = "fr"
+kind = "site"
+base_url = "https://reporters.dz/"
+status = "unverified"
+
+[[sources]]
+slug = "le-jeune-independant"
+name = "Le Jeune Indépendant"
+language = "fr"
+kind = "site"
+base_url = "https://www.jeune-independant.net/"
+status = "unverified"
+
+[[sources]]
+slug = "dk-news"
+name = "DK News"
+language = "fr"
+kind = "site"
+base_url = "https://www.dknews-dz.com/"
+status = "unverified"
+
+[[sources]]
+slug = "cap-ouest"
+name = "Cap Ouest"
+language = "fr"
+kind = "site"
+base_url = "https://cap-ouest.dz/"
+status = "unverified"
+
+[[sources]]
+slug = "echorouk"
+name = "Echorouk El Yawmi"
+name_ar = "الشروق اليومي"
+language = "ar"
+kind = "epaper"
+base_url = "https://www.echoroukonline.com/"
+epaper_url = "https://www.echoroukonline.com/epaper"
+status = "unverified"
+
+[[sources]]
+slug = "el-khabar"
+name = "El Khabar"
+name_ar = "الخبر"
+language = "ar"
+kind = "epaper"
+# Cracked 2026-09-30: GET /pdf?page=N with header X-Requested-With:
+# XMLHttpRequest returns a JSON issue list (214 pages of history); each
+# record carries file = <hash>-file.pdf, served at
+# /storage/pdf/<file> with no auth. Arabic text layer is partially
+# legacy-encoded (needs_ocr territory).
+base_url = "https://www.elkhabar.com/"
+epaper_url = "https://www.elkhabar.com/pdf"
+status = "verified"
+
+[[sources]]
+slug = "ennahar"
+name = "Ennahar El Djadid"
+name_ar = "النهار الجديد"
+language = "ar"
+kind = "site"
+base_url = "https://www.ennaharonline.com/"
+status = "unverified"
+
+[[sources]]
+slug = "el-bilad"
+name = "El Bilad"
+name_ar = "البلاد"
+language = "ar"
+kind = "epaper"
+# Verified 2026-09-30: /pdf/latest embeds the daily PDF at
+# /storage/pdf/<hash>-file.pdf (linked from the homepage too).
+base_url = "https://www.elbilad.net/"
+epaper_url = "https://www.elbilad.net/pdf/latest"
+status = "verified"
+
+[[sources]]
+slug = "ech-chaab"
+name = "Ech Chaâb"
+name_ar = "الشعب"
+language = "ar"
+kind = "epaper"
+base_url = "https://www.ech-chaab.com/"
+epaper_url = "https://www.ech-chaab.com/pdf"
+status = "unverified"
+
+[[sources]]
+slug = "el-massa"
+name = "El Massa"
+name_ar = "المساء"
+language = "ar"
+kind = "site"
+base_url = "https://www.el-massa.com/"
+status = "unverified"
+
+[[sources]]
+slug = "an-nasr"
+name = "An Nasr"
+name_ar = "النصر"
+language = "ar"
+kind = "epaper"
+base_url = "https://www.annasronline.com/"
+# Verified 2026-09-30: the e-paper reader links only the front page;
+# inner pages follow /images/Pdf/pN.pdf but currently serve an app-shell placeholder.
+epaper_url = "https://www.annasronline.com/images/Pdf/p1.pdf"
+status = "verified"
+
+[[sources]]
+slug = "el-djoumhouria"
+name = "El Djoumhouria"
+name_ar = "الجمهورية"
+language = "ar"
+kind = "epaper"
+base_url = "https://www.eldjoumhouria.dz/"
+epaper_url = "https://www.eldjoumhouria.dz/epaper"
+status = "unverified"
+
+[[sources]]
+slug = "akher-saa"
+name = "Akher Saâ"
+name_ar = "آخر ساعة"
+language = "ar"
+kind = "site"
+base_url = "https://www.akhersaa-dz.com/"
+status = "unverified"
+
+[[sources]]
+slug = "al-fadjr"
+name = "Al Fadjr"
+name_ar = "الفجر"
+language = "ar"
+kind = "site"
+base_url = "https://al-fadjr.com/"
+status = "unverified"
+
+# ---------------------------------------------------------------------------
+# Internet job sources (research round 2026-09-30; each status below was
+# measured with a live probe — see data/source_status.json for evidence).
+# kind "board"  = online job board (offers are HTML pages, not print PDFs)
+# kind "portal" = official / aggregator site carrying concours announcements
+# ---------------------------------------------------------------------------
+
+# HIGH YIELD: 24 server-rendered job-offer links per listing page under
+# /entreprises/<company>/offres-d-emploi/<sector>/<title-slug> (company and
+# title are recoverable straight from the URL slug). Next.js site, plain
+# requests works.
+[[sources]]
+slug = "emploitic"
+name = "Emploitic"
+language = "fr"
+kind = "board"
+base_url = "https://emploitic.com/"
+epaper_url = "https://emploitic.com/offres-d-emploi"
+status = "verified"
+
+# Server-rendered enough to show job links; offers open in a JS drawer
+# (JobDetailsDrawer) so detail pages need API reverse-engineering.
+[[sources]]
+slug = "emploipartner"
+name = "Emploipartner"
+language = "fr"
+kind = "board"
+base_url = "https://www.emploipartner.com/"
+epaper_url = "https://www.emploipartner.com/fr/jobs/search"
+status = "reachable"
+
+[[sources]]
+slug = "triemploi"
+name = "Triemploi"
+language = "fr"
+kind = "board"
+base_url = "https://triemploi.com/"
+status = "reachable"
+
+# Aggregators that render client-side (empty HTML shells; need JS or API).
+[[sources]]
+slug = "optioncarriere"
+name = "Optioncarriere Algérie"
+language = "fr"
+kind = "board"
+base_url = "https://www.optioncarriere.dz/"
+status = "spa"
+
+[[sources]]
+slug = "ouedkniss-emploi"
+name = "Ouedkniss Emploi"
+language = "fr"
+kind = "board"
+base_url = "https://www.ouedkniss.com/"
+# Highest-volume classifieds site in DZ; the /emploi_offres listing is a JS
+# shell — reverse-engineer its JSON API before scraping.
+status = "spa"
+
+[[sources]]
+slug = "algeriejob"
+name = "Algeriejob"
+language = "fr"
+kind = "board"
+base_url = "https://www.algeriejob.com/"
+status = "blocked"
+
+# National concours aggregator (WordPress, 244KB pages, FR/AR editions).
+[[sources]]
+slug = "jobsdz"
+name = "JobsDZ (concours aggregator)"
+language = "ar"
+kind = "portal"
+base_url = "https://jobsdz.com/"
+status = "reachable"
+
+# PDF e-paper hub: links the "version papier" of many Algerian dailies.
+# Mapping its per-paper URLs is the fastest way to recover the epaper PDF
+# URLs for sources still unverified above.
+[[sources]]
+slug = "pressealgerie"
+name = "PresseAlgérie (e-paper hub)"
+language = "fr"
+kind = "portal"
+base_url = "https://pressealgerie.fr/"
+status = "reachable"
+
+# Dedicated national concours portal (reachable over plain http; the JS
+# embeds its announcement arrays in assets/js/javascript.js).
+[[sources]]
+slug = "concours-fonction-publique"
+name = "Portail national des concours"
+language = "ar"
+kind = "portal"
+base_url = "http://www.concours-fonction-publique.gov.dz/"
+status = "reachable"
+
+# Ministries that publish their own recruitment contests as HTML pages.
+[[sources]]
+slug = "mjustice-concours"
+name = "Ministère de la Justice — concours"
+language = "fr"
+kind = "portal"
+# TLS cert invalid (.gov.dz pattern); probe OK with verify=False.
+base_url = "https://www.mjustice.gov.dz/fr/40869/"
+insecure_tls = true
+status = "reachable"
+
+[[sources]]
+slug = "mfinances-concours"
+name = "Ministère des Finances — concours"
+language = "fr"
+kind = "portal"
+base_url = "https://www.mf.gov.dz/index.php/fr/concours"
+status = "reachable"
+
+[[sources]]
+slug = "mfa-concours"
+name = "Ministère des Affaires Étrangères — concours"
+language = "fr"
+kind = "portal"
+base_url = "https://www.mfa.gov.dz/fr/announcements-and-publications"
+status = "unverified"
+
+[[sources]]
+slug = "trabajo-dz"
+name = "Trabajo.org Algérie (aggregator)"
+language = "fr"
+kind = "board"
+base_url = "https://dz.trabajo.org/"
+status = "unverified"
+
+# Portals where newspaper notices are legally syndicated (clean text, no OCR).
+[[sources]]
+slug = "dgfp"
+name = "Direction Générale de la Fonction Publique"
+language = "fr"
+kind = "portal"
+# TLS cert is invalid (common for .gov.dz); requests need verify=False.
+base_url = "https://www.dgfp.gov.dz/"
+insecure_tls = true
+status = "reachable"
+
+[[sources]]
+slug = "anem"
+name = "ANEM (Agence Nationale de l'Emploi)"
+language = "fr"
+kind = "portal"
+# TLS cert is invalid; the site is an Angular SPA (content via API).
+base_url = "https://www.anem.dz/"
+insecure_tls = true
+status = "reachable"
